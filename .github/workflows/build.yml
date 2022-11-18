@@ -53,7 +53,7 @@ jobs:
                 dir &&
                 cd .. &&
                 dir
-            OUT_FILE_NAME: Ubercoc_${{ github.ref_name }}_windows.zip
+            OUT_FILE_NAME: Ubercoc_${{ github.ref_name }}_win10.zip
             ASSET_MIME: application/vnd.microsoft.portable-executable
     steps:
     - uses: actions/checkout@v1
