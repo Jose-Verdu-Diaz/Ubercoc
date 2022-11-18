@@ -39,14 +39,14 @@ jobs:
           - os: macos-latest
             TARGET: macos
             CMD_BUILD: >
-                pyinstaller -F -w -n Ubercoc -i rsc/img/logo.png Ubercoc.py &&
+                pyinstaller -F -w -n Ubercoc -i rsc/img/logo.icns Ubercoc.py &&
                 cd dist/ &&
                 zip -r9 Ubercoc Ubercoc.app/
             OUT_FILE_NAME: Ubercoc.zip
             ASSET_MIME: application/zip
           - os: windows-latest
             TARGET: windows
-            CMD_BUILD: pyinstaller -F -w -n Ubercoc -i rsc/img/logo.png Ubercoc.py
+            CMD_BUILD: pyinstaller -F -w -n Ubercoc -i rsc/img/logo.ico Ubercoc.py
             OUT_FILE_NAME: Ubercoc.exe
             ASSET_MIME: application/vnd.microsoft.portable-executable
     steps:
