@@ -1,4 +1,6 @@
 black
 pyqt5
+numpy
 pandas
+openpyxl
 pyinstaller

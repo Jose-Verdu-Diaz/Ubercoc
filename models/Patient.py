@@ -15,11 +15,43 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see https://www.gnu.org/licenses/
 """
 
+import pandas as pd
+from datetime import date
+from models.Visit import Visit
 
 class Patient:
-    def __init__(self, kc_id: str, aca_id: str, id: str, consent: int) -> None:
+    def __init__(
+        self, 
+        kc_id: str, 
+        aca_id: str, 
+        id: str, 
+        consent: int,
+        dob: date,
+    ) -> None:
 
         self.kc_id = kc_id
         self.aca_id = aca_id
         self.id = id
         self.consent = consent
+        self.dob = dob
+        self.visits = []
+
+    def add_visit(self, visit: Visit) -> None:
+        self.visits.append(visit)
+
+
+class PatientValidator:
+    def __init__(self, df: pd.DataFrame) -> None:
+
+        if not len(df['Subject ID ACA'].unique()) == 1:
+            print('Multiple patients encountered on PatientValidator')
+            return None
+
+        self.df = df
+    
+
+    def check_unique(self, var: str) -> bool:
+        if len(self.df[var].unique()) == 1:
+            return True
+        else:
+            return False

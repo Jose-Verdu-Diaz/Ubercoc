@@ -20,7 +20,7 @@ import pandas as pd
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtGui as qtg
 
-from models import Patient
+from models.State import State
 
 class AboutWindow(qtw.QMainWindow):
     def __init__(self, parent=None):
@@ -39,8 +39,10 @@ class MainWindow(qtw.QMainWindow):
     def __init__(self):
         super().__init__()
 
+        self.state = State()
+
         self.setWindowTitle("Ubercoc 0.1.0")
-        self.setWindowIcon(qtg.QIcon('rsc/img/logo.svg'))
+        self.setWindowIcon(qtg.QIcon('rsc/img/logo.png'))
         self.setGeometry(100, 100, 500, 300)
 
         menu_bar = self.menuBar()
@@ -70,7 +72,7 @@ class MainWindow(qtw.QMainWindow):
         self.show()
 
 
-    def select_file(self) -> str:
+    def select_file(self) -> None:
         file , check = qtw.QFileDialog.getOpenFileName(
             None,
             "QFileDialog.getOpenFileName()",
@@ -78,10 +80,7 @@ class MainWindow(qtw.QMainWindow):
             "Microsoft Excel Worksheet  (*.xlsx)",
         )
         if check:
-            print(file)
-            return file
-        else: 
-            return None
+            self.state.new(file)
 
 
 if __name__ == '__main__':
