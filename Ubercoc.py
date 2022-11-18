@@ -91,6 +91,7 @@ class MainWindow(qtw.QMainWindow):
 
         self.show()
 
+
     def select_file(self) -> None:
         file, check = qtw.QFileDialog.getOpenFileName(
             None,
