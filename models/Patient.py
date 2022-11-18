@@ -19,12 +19,13 @@ import pandas as pd
 from datetime import date
 from models.Visit import Visit
 
+
 class Patient:
     def __init__(
-        self, 
-        kc_id: str, 
-        aca_id: str, 
-        id: str, 
+        self,
+        kc_id: str,
+        aca_id: str,
+        id: str,
         consent: int,
         dob: date,
     ) -> None:
@@ -43,12 +44,11 @@ class Patient:
 class PatientValidator:
     def __init__(self, df: pd.DataFrame) -> None:
 
-        if not len(df['Subject ID ACA'].unique()) == 1:
-            print('Multiple patients encountered on PatientValidator')
+        if not len(df["Subject ID ACA"].unique()) == 1:
+            print("Multiple patients encountered on PatientValidator")
             return None
 
         self.df = df
-    
 
     def check_unique(self, var: str) -> bool:
         if len(self.df[var].unique()) == 1:
