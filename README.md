@@ -1,7 +1,3 @@
-<p align="center">
-  <img height="300" src="https://github.com/Jose-Verdu-Diaz/Ubercoc/blob/main/rsc/img/logo.png">
-</p>
-
 # Ubercoc
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
