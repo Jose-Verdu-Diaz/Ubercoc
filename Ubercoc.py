@@ -21,6 +21,7 @@ from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtGui as qtg
 
 from models.State import State
+from models.PandasModel import DataFrameModel
 
 
 class AboutWindow(qtw.QMainWindow):
@@ -71,10 +72,9 @@ class MainWindow(qtw.QMainWindow):
         tools_menu = menu_bar.addMenu("Tools")
         help_menu = menu_bar.addMenu("Help")
 
-        self.text_edit = qtw.QTextEdit(self)
-        self.setCentralWidget(self.text_edit)
+        self.table_view = qtw.QTableView(self)
+        self.setCentralWidget(self.table_view)
 
-        #file_menu.addAction("New", lambda: self.text_edit.clear())
         file_menu.addAction("Open", lambda: self.select_file())
 
         self.dialog = AboutWindow(self)
@@ -101,7 +101,9 @@ class MainWindow(qtw.QMainWindow):
         )
         if check:
             self.state.new(file)
-            self.text_edit.setText(F'{len(self.state.patients)} patients have been added!')
+            df = self.state.patients_df()
+            model = DataFrameModel(df)
+            self.table_view.setModel(model)
 
 
 if __name__ == "__main__":

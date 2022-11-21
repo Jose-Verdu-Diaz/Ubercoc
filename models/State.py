@@ -50,3 +50,8 @@ class State:
                 "dob": date,
             }
             self.patients.append(Patient(**attr))
+
+    def patients_df(self):
+        dicts = [p.get_dict() for p in self.patients]
+        dicts_combine = {k: [d[k] for d in dicts] for k in dicts[0]}
+        return pd.DataFrame(dicts_combine, columns=dicts[0].keys())

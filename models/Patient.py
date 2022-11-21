@@ -40,6 +40,15 @@ class Patient:
     def add_visit(self, visit: Visit) -> None:
         self.visits.append(visit)
 
+    def get_dict(self):
+        return {
+        'kc_id': self.kc_id,
+        'aca_id': self.aca_id,
+        'id': self.id,
+        'consent': self.consent,
+        'dob': self.dob,
+        }
+
 
 class PatientValidator:
     def __init__(self, df: pd.DataFrame) -> None:
