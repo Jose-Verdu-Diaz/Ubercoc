@@ -1,5 +1,5 @@
 <p align="center">
-  <img height="200" src="https://github.com/Jose-Verdu-Diaz/Ubercoc/blob/6b1d3927d5ce35bf90cefd216680ec54299bfdfc/rsc/img/ubercoc_banner.png">
+  <img height="200" src="https://github.com/Jose-Verdu-Diaz/Ubercoc/blob/646252902eaefe5eeaecff80160a70c822107c4c/rsc/img/ubercoc_banner.png">
 </p>
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
