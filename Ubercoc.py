@@ -63,7 +63,7 @@ class MainWindow(qtw.QMainWindow):
         self.state = State()
 
         self.setWindowTitle("Ubercoc 0.1.0")
-        self.setWindowIcon(qtg.QIcon("rsc/img/logo.png"))
+        self.setWindowIcon(qtg.QIcon("rsc/img/ubercoc_logo.png"))
         self.setGeometry(100, 100, 500, 300)
 
         menu_bar = self.menuBar()

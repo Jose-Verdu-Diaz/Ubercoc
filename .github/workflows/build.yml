@@ -47,7 +47,7 @@ jobs:
           - os: windows-latest
             TARGET: windows
             CMD_BUILD:  >
-                pyinstaller -D -w -n Ubercoc -i rsc/img/logo.ico Ubercoc.py &&
+                pyinstaller -D -w -n Ubercoc -i rsc/img/ubercoc_logo.ico Ubercoc.py &&
                 cd dist/ &&
                 Compress-Archive -Path 'Ubercoc' -DestinationPath 'Ubercoc_${{ github.ref_name }}_win10.zip'
             OUT_FILE_NAME: Ubercoc_${{ github.ref_name }}_win10.zip
