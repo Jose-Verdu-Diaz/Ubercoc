@@ -49,8 +49,7 @@ jobs:
             CMD_BUILD:  >
                 pyinstaller -D -w -n Ubercoc -i rsc/img/logo.ico Ubercoc.py &&
                 cd dist/ &&
-                sudo apt-get install -y zip &&
-                zip -v Ubercoc_${{ github.ref_name }}_win10.zip Ubercoc
+                Compress-Archive -Path 'Ubercoc' -DestinationPath 'Ubercoc_${{ github.ref_name }}_win10.zip'
             OUT_FILE_NAME: Ubercoc_${{ github.ref_name }}_win10.zip
             ASSET_MIME: application/vnd.microsoft.portable-executable
     steps:
