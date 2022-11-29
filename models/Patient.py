@@ -18,6 +18,7 @@ along with this program.  If not, see https://www.gnu.org/licenses/
 import pandas as pd
 from datetime import date
 from models.Visit import Visit
+from typing import List, Optional
 
 
 class Patient:
@@ -37,16 +38,17 @@ class Patient:
         self.dob = dob
         self.visits = []
 
-    def add_visit(self, visit: Visit) -> None:
+    def add_visit(self, visit: Visit):
         self.visits.append(visit)
 
     def get_dict(self):
         return {
-        'kc_id': self.kc_id,
-        'aca_id': self.aca_id,
-        'id': self.id,
-        'consent': self.consent,
-        'dob': self.dob,
+            "kc_id": self.kc_id,
+            "aca_id": self.aca_id,
+            "id": self.id,
+            "consent": self.consent,
+            "dob": self.dob,
+            "visits": len(self.visits)
         }
 
 

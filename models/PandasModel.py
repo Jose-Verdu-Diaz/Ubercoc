@@ -15,13 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see https://www.gnu.org/licenses/
 """
 
-'''
+"""
 The base of this code was retrieved from https://stackoverflow.com/a/44605011/7376038
 Thank you eyllanesc! https://github.com/eyllanesc
-'''
+"""
 
 import pandas as pd
 from PyQt5 import QtCore
+
 
 class DataFrameModel(QtCore.QAbstractTableModel):
     DtypeRole = QtCore.Qt.UserRole + 1000
@@ -42,7 +43,12 @@ class DataFrameModel(QtCore.QAbstractTableModel):
     dataFrame = QtCore.pyqtProperty(pd.DataFrame, fget=dataFrame, fset=setDataFrame)
 
     @QtCore.pyqtSlot(int, QtCore.Qt.Orientation, result=str)
-    def headerData(self, section: int, orientation: QtCore.Qt.Orientation, role: int = QtCore.Qt.DisplayRole):
+    def headerData(
+        self,
+        section: int,
+        orientation: QtCore.Qt.Orientation,
+        role: int = QtCore.Qt.DisplayRole,
+    ):
         if role == QtCore.Qt.DisplayRole:
             if orientation == QtCore.Qt.Horizontal:
                 return self._dataframe.columns[section]
@@ -61,8 +67,10 @@ class DataFrameModel(QtCore.QAbstractTableModel):
         return self._dataframe.columns.size
 
     def data(self, index, role=QtCore.Qt.DisplayRole):
-        if not index.isValid() or not (0 <= index.row() < self.rowCount() \
-            and 0 <= index.column() < self.columnCount()):
+        if not index.isValid() or not (
+            0 <= index.row() < self.rowCount()
+            and 0 <= index.column() < self.columnCount()
+        ):
             return QtCore.QVariant()
         row = self._dataframe.index[index.row()]
         col = self._dataframe.columns[index.column()]
@@ -79,8 +87,8 @@ class DataFrameModel(QtCore.QAbstractTableModel):
 
     def roleNames(self):
         roles = {
-            QtCore.Qt.DisplayRole: b'display',
-            DataFrameModel.DtypeRole: b'dtype',
-            DataFrameModel.ValueRole: b'value'
+            QtCore.Qt.DisplayRole: b"display",
+            DataFrameModel.DtypeRole: b"dtype",
+            DataFrameModel.ValueRole: b"value",
         }
         return roles

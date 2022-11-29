@@ -17,6 +17,8 @@ along with this program.  If not, see https://www.gnu.org/licenses/
 
 import numpy as np
 import pandas as pd
+from typing import Optional
+from models.Visit import Visit
 from datetime import datetime as dtm
 from models.Patient import Patient, PatientValidator
 
@@ -27,13 +29,14 @@ class State:
 
     def new(self, file: str) -> None:
         df = pd.read_excel(file, sheet_name=0)
+
+        # Identify Patients by unique Subject ID ACA, if we find different DOBs for the same Subject ID ACA
+        # we consider the patient to be invalid
         for id in df["Subject ID ACA"].unique():
-
             pv = PatientValidator(df.loc[df["Subject ID ACA"] == id])
-
             if not pv.check_unique(var="DOB"):
                 print(
-                    f'Inconsistency in variable "DOB" found for patient "{id}", skipping patient'
+                    f"Inconsistency in variable 'DOB' found for patient '{id}', skipping patient"
                 )
                 continue
 
@@ -49,9 +52,28 @@ class State:
                 "consent": 0,  # TODO
                 "dob": date,
             }
-            self.patients.append(Patient(**attr))
+            p = Patient(**attr)
+            self.patients.append(p)
+
+        # After patients have been added, each row of the df is added as a visit
+        for i in range(len(df)):
+            date_str = df.iloc[i]["Medical consultation date"]
+            attr = {
+                "date": dtm.strptime(date_str, "%d/%b/%Y")
+                if not pd.isna(date_str)
+                else np.NaN,
+            }
+            idx = self.get_patient_idx(df.iloc[i]["Subject ID ACA"])
+            
+            self.patients[idx].add_visit(visit = Visit(**attr))
 
     def patients_df(self):
         dicts = [p.get_dict() for p in self.patients]
         dicts_combine = {k: [d[k] for d in dicts] for k in dicts[0]}
         return pd.DataFrame(dicts_combine, columns=dicts[0].keys())
+
+    def get_patient_idx(self, id: str) -> int:
+        for i, p in enumerate(self.patients):
+            if p.id == id:
+                return i
+        return None

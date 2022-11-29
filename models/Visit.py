@@ -15,9 +15,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see https://www.gnu.org/licenses/
 """
 
-from datetime import datetime
+from typing import List
+from datetime import date
+from models.Treatment import Treatment
 
 
 class Visit:
-    def __init__(self) -> None:
-        self.date = None
+    def __init__(self, date:date, treatments: List[Treatment] = []) -> None:
+        self.date = date
+        self.treatments = treatments

@@ -62,7 +62,7 @@ class MainWindow(qtw.QMainWindow):
 
         self.state = State()
 
-        self.setWindowTitle("Ubercoc 0.1.0")
+        self.setWindowTitle("Ubercoc 0.2.0")
         self.setWindowIcon(qtg.QIcon("rsc/img/ubercoc_logo.png"))
         self.setGeometry(100, 100, 500, 300)
 
@@ -87,10 +87,8 @@ class MainWindow(qtw.QMainWindow):
         # Statusbar
         self.status_bar = qtw.QStatusBar()
         self.setStatusBar(self.status_bar)
-        self.status_bar.showMessage("Ubercoc 0.1.0")
 
         self.show()
-
 
     def select_file(self) -> None:
         file, check = qtw.QFileDialog.getOpenFileName(
