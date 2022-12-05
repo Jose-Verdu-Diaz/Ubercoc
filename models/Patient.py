@@ -47,7 +47,7 @@ class Patient:
             "aca_id": self.aca_id,
             "id": self.id,
             "consent": self.consent,
-            "dob": self.dob,
+            "dob": self.dob.strftime("%d/%b/%Y") if isinstance(self.dob, date) else self.dob,
             "visits": len(self.visits)
         }
 

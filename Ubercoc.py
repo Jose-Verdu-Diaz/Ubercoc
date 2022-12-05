@@ -16,15 +16,14 @@ along with this program.  If not, see https://www.gnu.org/licenses/
 """
 
 import sys
-import pandas as pd
-from PyQt5 import QtWidgets as qtw
-from PyQt5 import QtGui as qtg
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QLabel, QToolBar, QStatusBar, QApplication, QFileDialog, QMainWindow, QTableView, QAbstractItemView
 
 from models.State import State
 from models.PandasModel import DataFrameModel
 
 
-class AboutWindow(qtw.QMainWindow):
+class AboutWindow(QMainWindow):
     def __init__(self, parent=None):
         super(AboutWindow, self).__init__(parent)
 
@@ -47,7 +46,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see https://www.gnu.org/licenses/
 """
-        self.label = qtw.QLabel(
+        self.label = QLabel(
             text,
             self,
         )
@@ -56,42 +55,44 @@ along with this program.  If not, see https://www.gnu.org/licenses/
         self.setCentralWidget(self.label)
 
 
-class MainWindow(qtw.QMainWindow):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.state = State()
 
         self.setWindowTitle("Ubercoc 0.2.0")
-        self.setWindowIcon(qtg.QIcon("rsc/img/ubercoc_logo.png"))
-        self.setGeometry(100, 100, 500, 300)
+        self.setWindowIcon(QIcon("rsc/img/ubercoc_logo.png"))
+        self.setGeometry(100, 100, 600, 400)
 
-        menu_bar = self.menuBar()
-        file_menu = menu_bar.addMenu("File")
-        edit_menu = menu_bar.addMenu("Edit")
-        tools_menu = menu_bar.addMenu("Tools")
-        help_menu = menu_bar.addMenu("Help")
+        self.menu_bar = self.menuBar()
+        self.file_menu = self.menu_bar.addMenu("File")
+        self.edit_menu = self.menu_bar.addMenu("Edit")
+        self.tools_menu = self.menu_bar.addMenu("Tools")
+        self.help_menu = self.menu_bar.addMenu("Help")
 
-        self.table_view = qtw.QTableView(self)
+        self.table_view = QTableView(self)
         self.setCentralWidget(self.table_view)
+        self.table_view.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.table_view.setSelectionMode(QAbstractItemView.SingleSelection)
 
-        file_menu.addAction("Open", lambda: self.select_file())
+        self.file_menu.addAction("Open", lambda: self.select_file())
 
         self.dialog = AboutWindow(self)
-        help_menu.addAction("About", lambda: self.dialog.show())
+        self.help_menu.addAction("About", lambda: self.dialog.show())
 
         # Toolbar
-        toolbar = qtw.QToolBar("Toolbar")
+        toolbar = QToolBar("Toolbar")
         self.addToolBar(toolbar)
 
         # Statusbar
-        self.status_bar = qtw.QStatusBar()
+        self.status_bar = QStatusBar()
         self.setStatusBar(self.status_bar)
 
         self.show()
 
     def select_file(self) -> None:
-        file, check = qtw.QFileDialog.getOpenFileName(
+        file, check = QFileDialog.getOpenFileName(
             None,
             "QFileDialog.getOpenFileName()",
             "",
@@ -105,7 +106,7 @@ class MainWindow(qtw.QMainWindow):
 
 
 if __name__ == "__main__":
-    app = qtw.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     w = MainWindow()
     w.show()
     sys.exit(app.exec())

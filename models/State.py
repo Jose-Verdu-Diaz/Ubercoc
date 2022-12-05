@@ -22,6 +22,8 @@ from models.Visit import Visit
 from datetime import datetime as dtm
 from models.Patient import Patient, PatientValidator
 
+from lib.utils import convert_id
+
 
 class State:
     def __init__(self) -> None:
@@ -46,9 +48,9 @@ class State:
             )
 
             attr = {
-                "kc_id": df.loc[df["Subject ID ACA"] == id]["kc_id"].iloc[0],
-                "aca_id": df.loc[df["Subject ID ACA"] == id]["aca_id"].iloc[0],
-                "id": id,
+                "kc_id": convert_id(df.loc[df["Subject ID ACA"] == id]["kc_id"].iloc[0]),
+                "aca_id": convert_id(df.loc[df["Subject ID ACA"] == id]["aca_id"].iloc[0]),
+                "id": convert_id(id),
                 "consent": 0,  # TODO
                 "dob": date,
             }
